@@ -1,0 +1,17 @@
+  <form class="" role="search">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-info" type="button" (click)="createSearchResults()">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </form>
+  <p></p>
+  <ul class="list-group" *ngIf="searchResults">
+    <a *ngFor="let result of searchResults"
+       (click)="onSelect(result)"
+       class="list-group-item">
+      <strong>{{result.name}}</strong><br />
+      {{result.zipcodeObj.city}}, {{result.zipcodeObj.state}}
+    </a>
+  </ul>
