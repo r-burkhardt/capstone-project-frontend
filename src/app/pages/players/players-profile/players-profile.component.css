@@ -1,0 +1,27 @@
+@media screen and (max-width: 768px) {
+  .player-profile-pic {
+    max-width: 250px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.player-profile-name {
+  margin: 0;
+  padding: 0;
+  margin-top: .67em;
+  margin-bottom: .67em;
+}
+
+.player-profile-pic {
+  max-width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.input-player {
+  margin-bottom: .5em;
+  width:100%;
+  border: none;
+  background: none;
+}

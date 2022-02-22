@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="text-center">
+        <h2 id="org-page-head">Players</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sx-12 col-sm-4 col-md-3 col-lg-2">
+      <h4>A player can...</h4>
+      <ul>
+        <li>Join an Organization</li>
+        <li>Join an Organization's Leagues</li>
+        <li>Check in to an Open Gym session</li>
+        <li>Keep track of their game stats</li>
+        <li>Host/participate pick-up games</li>
+        <li>Keep in touch with other players</li>
+      </ul>
+      <!--<ul *ngIf="allPlayers">-->
+        <!--<li *ngFor="let player of allPlayers">-->
+          <!--{{player.firstName}} {{player.id}}-->
+        <!--</li>-->
+      <!--</ul>-->
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-8"></div>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="alert alert-info text-center" id="new-player-header" >
+        <h3>New Players</h3>
+      </div>
+      <div class="list-group" *ngIf="allPlayers">
+        <a *ngFor="let player of allPlayers"
+           routerLink="./{{player.id}}"
+           class="list-group-item">
+          <span class="list-group-item-heading">{{player.firstName}}</span>
+          <span class="small text-success">{{player.zipcodeObj.city}}, {{player.zipcodeObj.state}}</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sx-12 col-sm-12 col-md-12 col-lg-12">
+      <!--<div *ngIf="onePlayer">-->
+        <!--{{onePlayer.firstName }} {{onePlayer.id}}-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
