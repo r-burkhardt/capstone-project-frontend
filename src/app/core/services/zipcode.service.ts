@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ZipcodeService {
 
   private readonly baseUri = 'v1/zipcode';
@@ -52,9 +52,4 @@ export class Zipcode implements Serializable<Zipcode> {
     return new Zipcode().deserialize(JSON.parse(JSON.stringify(this)));
   }
 
-  // numToString(zip: number): string {
-  //
-  // }
-
 }
-

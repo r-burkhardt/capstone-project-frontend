@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-import {Zipcode} from './zipcode.service';
+import { Zipcode } from './zipcode.service';
+import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OrganizationService {
 
   private readonly baseUri = 'v1/org';
@@ -17,35 +18,24 @@ export class OrganizationService {
     if (this.apiService.isLocal()) {
       observable = this.apiService.get(uri);
     }
-    // else {
-    //   const json = { ids: id };
-    //   observable = this.apiService.remoteCall("getOrganizations", JSON.stringify(json));
-    // }
 
-    return observable.map(response => {
+    return observable.pipe(map(response => {
       let data;
-      // if (response.result) {
-      //   data = response.result[0];
-      // } else {
-      //   data = response[0];
-      // }
 
       data = response;
 
       return new Organization().deserialize(data);
-    });
+    }));
   }
 
   getAllOrganizations(params): Observable<Organization[]> {
     let observable;
     if (this.apiService.isLocal()) {
-      const uri = this.baseUri; // + (params === undefined ? "" : "?" + this.apiService.resolveParamsToUri(params));
+      const uri = this.baseUri;
       observable = this.apiService.get(uri);
-    } //else {
-      // observable = this.apiService.remoteCall("getOrganizations", JSON.stringify(params));
-    // }
+    }
 
-    return observable.map(response => {
+    return observable.pipe(map((response: any) => {
       let data = response;
       if (response.result) {
         data = response.result;
@@ -53,12 +43,12 @@ export class OrganizationService {
 
       const organizations = [];
       if (!data.status) {
-        data.organizations.forEach(item => {
+        data.organizations.forEach((item: any) => {
           organizations.push(new Organization().deserialize(item));
         });
       }
       return organizations;
-    });
+    }));
   }
 }
 

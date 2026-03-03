@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AssetUrlService {
 
   constructor() { }
@@ -9,7 +9,6 @@ export class AssetUrlService {
     let output = asset;
     if (!location.hostname.startsWith("localhost")) {
       output = asset;
-      // output = getAssetUrl(asset);
     }
     return output;
   }

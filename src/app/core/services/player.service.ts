@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-import {Zipcode} from './zipcode.service';
-import {until} from 'selenium-webdriver';
-import { map } from 'rxjs/operators'
-import elementIsSelected = until.elementIsSelected;
+import { Zipcode } from './zipcode.service';
+import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PlayerService {
 
   private readonly baseUri = 'v1/player';
@@ -17,21 +15,9 @@ export class PlayerService {
     const uri = this.baseUri + '/' + id;
 
     const observable  = this.apiService.get(uri);
-    // if (this.apiService.isLocal()) {
-    //   observable = this.apiService.get(uri);
-    // }
 
     return observable.pipe(map(response => {
       const data = response;
-      // if (response.result) {
-      //   console.log(response);
-      //   data = response.result[0];
-      // } else {
-      //   console.log(response)
-      //   data = response[0];
-      // }
-
-      // data = response;
 
       return new Player().deserialize(data);
     }));
@@ -44,7 +30,7 @@ export class PlayerService {
       observable = this.apiService.get(uri);
     }
 
-    return observable.map(response => {
+    return observable.pipe(map((response: any) => {
       let data = response;
       if (response.result) {
         data = response.result;
@@ -52,12 +38,12 @@ export class PlayerService {
 
       const players = [];
       if (!data.status) {
-        data.players.forEach(item => {
+        data.players.forEach((item: any) => {
           players.push(new Player().deserialize(item));
         })
       }
       return players;
-    });
+    }));
   }
 
   createPlayer(player: Player): Observable<Player> {
@@ -67,8 +53,6 @@ export class PlayerService {
   updatePlayer(player: Player): Observable<Player> {
     return null;
   }
-
-  // deletePlayer(player: Player) { }
 }
 
 export class Player implements Serializable<Player> {
@@ -88,7 +72,7 @@ export class Player implements Serializable<Player> {
   heightFeet = '';
   heightInch = '';
   yearsPlay = '';
-  injuries = []; // '';
+  injuries = [];
   pointAvg = '';
   about = '';
   profilePic = '';
@@ -151,7 +135,7 @@ export class Player implements Serializable<Player> {
   calculateRank() {
     const age = this.getAge();
     const height = parseFloat(this.heightFeet) + (parseFloat(this.heightInch) / 12);
-    const yearsPlay = parseFloat(this.yearsPlay); // parseInt(this.yearsPlay.substring(this.yearsPlay.length - 1), 10);
+    const yearsPlay = parseFloat(this.yearsPlay);
     const injuryCount = this.injuries.length;
     const pointAvg = parseFloat(this.pointAvg);
 

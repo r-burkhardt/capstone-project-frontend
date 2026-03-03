@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pages',
+  standalone: true,
+  imports: [],
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css']
 })
